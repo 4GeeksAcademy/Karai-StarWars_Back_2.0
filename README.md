@@ -29,6 +29,12 @@ pipenv run upgrade;
 
 ## 2) How to Start coding
 
+### Front-end repository
+
+https://github.com/4GeeksAcademy/Karai-StarWars_Front
+
+### Api example
+
 There is an example API working with an example database. All your application code should be written inside the `./src/` folder.
 
 - src/main.py (it's where your endpoints should be coded)
