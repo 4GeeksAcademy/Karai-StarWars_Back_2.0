@@ -1,4 +1,8 @@
 from flask import jsonify, url_for
+import requests
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 class APIException(Exception):
     status_code = 400
@@ -39,3 +43,39 @@ def generate_sitemap(app):
         <p>Start working on your proyect by following the <a href="https://start.4geeksacademy.com/starters/flask" target="_blank">Quick Start</a></p>
         <p>Remember to specify a real endpoint path like: </p>
         <ul style="text-align: left;">"""+links_html+"</ul></div>"
+
+
+def save_to_cloudinary(image_url, custom_public_id, type):
+    cloudinary.config(
+        cloud_name='star-wars',
+        api_key='598723449155296',
+        api_secret='TcGe5iwqFxD2H0etVPUubTumtd4'
+    )
+
+    folder_path = 'StarWars/'
+
+    if (type == 'character'):
+        folder_path += 'characters/'
+    elif (type == 'planet'):
+        folder_path += 'planets/'
+    elif (type == 'starship'):
+        folder_path += 'starships/'
+
+    try:
+        response = requests.get(image_url)
+        image_content = response.content
+
+        upload_result = cloudinary.uploader.upload(
+            image_content,
+            folder=folder_path,
+            public_id=custom_public_id)
+
+        return upload_result["secure_url"]
+    except cloudinary.exceptions.Error as e:
+        # Handle Cloudinary API errors
+        print("Cloudinary API Error:", e)
+        return jsonify({'message': "error al subir imagen"}), 500
+    except cloudinary.uploader.Error as e:
+        # Handle Cloudinary uploader errors
+        print("Cloudinary Uploader Error:", e)
+        return jsonify({'message': "error al subir imagen"}), 500
