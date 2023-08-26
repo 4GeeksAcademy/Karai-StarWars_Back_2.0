@@ -540,7 +540,7 @@ def post_favorite_character():
     db.session.add(favorite)
     db.session.commit()
 
-    return jsonify('Favorite character added')
+    return jsonify('COMPLETED')
 
 @app.route('/favorites/planet', methods=['POST'])
 def post_favorite_planet():
@@ -550,7 +550,7 @@ def post_favorite_planet():
     db.session.add(favorite)
     db.session.commit()
 
-    return jsonify('Favorite planet added')
+    return jsonify('COMPLETED')
 
 @app.route('/favorites/starship', methods=['POST'])
 def post_favorite_ship():
@@ -561,7 +561,7 @@ def post_favorite_ship():
     db.session.add(favorite)
     db.session.commit()
 
-    return ('Favorite starship added')
+    return jsonify('COMPLETED')
 
 @app.route('/favorites/character', methods=['DELETE'])
 def delete_favorite_character():
@@ -575,7 +575,7 @@ def delete_favorite_character():
             if favorite:
                 db.session.delete(favorite)
                 db.session.commit()
-                return jsonify({'message': 'Favorite character deleted successfully'}), 200
+                return jsonify('COMPLETED'), 200
             else:
                 return jsonify({'error': 'Favorite character not found for this user'}), 404
         else:
@@ -596,7 +596,7 @@ def delete_favorite_planet():
             if favorite:
                 db.session.delete(favorite)
                 db.session.commit()
-                return jsonify({'message': 'Favorite planet deleted successfully'}), 200
+                return jsonify('COMPLETED'), 200
             else:
                 return jsonify({'error': 'Favorite planet not found for this user'}), 404
         else:
@@ -617,7 +617,7 @@ def delete_favorite_ship():
             if favorite:
                 db.session.delete(favorite)
                 db.session.commit()
-                return jsonify({'message': 'Favorite starship deleted successfully'}), 200
+                return jsonify('COMPLETED'), 200
             else:
                 return jsonify({'error': 'Favorite starship not found for this user'}), 404
         else:
